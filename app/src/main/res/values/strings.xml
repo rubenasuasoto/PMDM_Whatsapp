@@ -1,0 +1,24 @@
+<resources>
+        <string name="app_name">WhatsApp</string>
+        <string name="search">Buscar</string>
+        <string name="calls">Llamadas</string>
+        <string name="options">Opciones</string>
+        <string name="home">Home</string>
+        <string name="message">Mensajes</string>
+        <string name="cuentas">Cuentas</string>
+
+        <!-- Contact Names -->
+        <string name="contact_pablo">Pablo Pérez</string>
+        <string name="contact_ana">Ana María</string>
+        <string name="contact_carlos">Carlos Lozano</string>
+        <string name="contact_marcos">Marcos González</string>
+        <string name="contact_laura">Laura Aragón</string>
+        <string name="contact_fernando">Fernando Silva</string>
+        <string name="contact_susana">Susana Ortiz</string>
+        <string name="contact_julia">Julia Campos</string>
+        <string name="contact_ignacio">Ignacio Vega</string>
+        <string name="contact_maria">María Fernández</string>
+
+        <!-- Placeholder Message -->
+        <string name="last_message">Último mensaje recibido...</string>
+</resources>
