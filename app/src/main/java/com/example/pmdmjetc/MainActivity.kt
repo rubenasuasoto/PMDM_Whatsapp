@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WhatsAppMenuScreen()
+            WhatsAppMenuPreview()
         }
     }
 }
@@ -96,8 +96,7 @@ fun WhatsAppMenuScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.Black)
-                        .padding(16.dp)
-                        .verticalScroll(rememberScrollState()),
+                        .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -155,7 +154,7 @@ fun WhatsAppBottomBar() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun WhatsAppMenuPreview() {
     WhatsAppMenuScreen()
