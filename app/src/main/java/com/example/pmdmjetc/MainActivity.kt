@@ -2,13 +2,23 @@ package com.example.pmdmjetc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Call
@@ -16,39 +26,38 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.*
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.pmdmjetc.navegacion.AppScreen
+import com.example.pmdmjetc.navegacion.Whatsapp
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            WhatsAppMenuPreview()
+            Whatsapp()
         }
     }
 }
 
 val mainColor = Color.Black
-val contactNames = listOf(
-    R.string.contact_pablo,
-    R.string.contact_ana,
-    R.string.contact_carlos,
-    R.string.contact_marcos,
-    R.string.contact_laura,
-    R.string.contact_fernando,
-    R.string.contact_susana,
-    R.string.contact_julia,
-    R.string.contact_ignacio,
-    R.string.contact_maria
-)
+
 
 val lastMessageTimes = listOf(
     "10:45 AM", "Yesterday", "8:23 PM", "11:10 AM", "Saturday",
@@ -76,11 +85,23 @@ fun WhatsAppTopBar() {
 }
 
 @Composable
-fun WhatsAppMenuScreen() {
+fun WhatsAppMenuScreen(navController: NavHostController) {
+    val contactNames = listOf(
+        stringResource(id = R.string.contact_pablo),
+        stringResource(id = R.string.contact_ana),
+        stringResource(id = R.string.contact_carlos),
+        stringResource(id = R.string.contact_marcos),
+        stringResource(id = R.string.contact_laura),
+        stringResource(id = R.string.contact_fernando),
+        stringResource(id = R.string.contact_susana),
+        stringResource(id = R.string.contact_julia),
+        stringResource(id = R.string.contact_ignacio),
+        stringResource(id = R.string.contact_maria)
+    )
+
     Column(modifier = Modifier.fillMaxSize()) {
         WhatsAppTopBar()
 
-        // Lista de contactos desplazable
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -88,33 +109,34 @@ fun WhatsAppMenuScreen() {
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
-
         ) {
-            itemsIndexed(contactNames) { index, contactNameId ->
+            itemsIndexed(contactNames) { index, contactName ->
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.Black)
-                        .padding(16.dp),
+                        .padding(16.dp)
+                        .clickable {
+                            navController.navigate(route = AppScreen.chatScreen.route + "/$contactName")
+                        },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
                         modifier = Modifier
                             .size(40.dp)
                             .background(Color.Gray, shape = CircleShape)
-
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = stringResource(id = contactNameId),
+                            text = contactName,
                             fontWeight = FontWeight.Bold,
                             fontSize = 16.sp,
                             color = Color.White
                         )
                         Text(
-                            text = stringResource(id = R.string.last_message),
+                            text = "Last message preview...", // Placeholder
                             color = Color.Gray,
                             fontSize = 14.sp
                         )
@@ -133,6 +155,7 @@ fun WhatsAppMenuScreen() {
         WhatsAppBottomBar()
     }
 }
+
 
 @Composable
 fun WhatsAppBottomBar() {
@@ -154,8 +177,3 @@ fun WhatsAppBottomBar() {
     }
 }
 
-@Preview
-@Composable
-fun WhatsAppMenuPreview() {
-    WhatsAppMenuScreen()
-}
