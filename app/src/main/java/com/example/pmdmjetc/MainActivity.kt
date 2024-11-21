@@ -6,7 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Call
@@ -86,6 +88,7 @@ fun WhatsAppMenuScreen() {
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
+
         ) {
             itemsIndexed(contactNames) { index, contactNameId ->
                 Spacer(modifier = Modifier.height(8.dp))
@@ -93,13 +96,15 @@ fun WhatsAppMenuScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.Black)
-                        .padding(16.dp),
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState()),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
                         modifier = Modifier
                             .size(40.dp)
                             .background(Color.Gray, shape = CircleShape)
+
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
